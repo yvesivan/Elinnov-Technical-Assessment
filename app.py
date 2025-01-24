@@ -37,7 +37,7 @@ if st.button("Check Prime"):
     if is_prime(number):
         st.success(f"{number} is a Prime Number.")
     else:
-        st.error(f"{number} is NOT a Prime Number.")
+        st.error(f"{number} is not a Prime Number.")
 
 # Button to calculate the factorial of the number
 if st.button("Find Factorial"):

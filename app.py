@@ -26,7 +26,7 @@ def factorial(number):
     return math.factorial(number)
 
 # Streamlit UI
-st.title("Prime Number and Factorial Checker")
+st.title("Prime Number Checker and Factorial Calculator")
 
 # User input for number
 number = st.number_input("Enter a number:", min_value=-10000, max_value=10000, step=1)

@@ -2,6 +2,7 @@ import streamlit as st
 import math
 
 # Cache the results of factorial calculations to avoid redundant work
+# Using Streamlit's @st.cache_data decorator for memoization
 @st.cache_data
 def factorial(number):
     try:
@@ -47,5 +48,6 @@ if st.button("Check Prime"):
 
 # Button to calculate the factorial of the number
 if st.button("Find Factorial"):
+    # Call the factorial function, which is memoized
     result = factorial(number)
     st.info(f"The Factorial of {number} is {result}.")

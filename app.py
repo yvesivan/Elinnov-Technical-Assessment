@@ -1,43 +1,45 @@
 import streamlit as st
 import math
 
-# Function to check if a number is prime
-def is_prime(number):
-    # Return False for numbers less than or equal to 1
-    if number <= 1:
-        return False
-    # Optimization Done: It will check if the number entered is divisible by 2
-    ## This reduces the number of iterations for even numbers.
-    if number == 2:
-        return True
-    if number % 2 == 0:
-        return False
-    # Check for divisibility from 3 to the square root of the number
-    for i in range(3, int(math.sqrt(number)) + 1, 2):
-        if number % i == 0:
-            return False
-    return True
-
-# Function to calculate the factorial of a number
+# Cache the results of factorial calculations to avoid redundant work
+@st.cache_data
 def factorial(number):
     try:
         # Factorial is not defined for negative numbers, so return a message for negative inputs
         if number < 0:
             return "Undefined (negative numbers)"
-        # Use the math.factorial function to calculate the factorial
-        return math.factorial(number)
+        # If number is 0 or 1, return 1 as factorial of 0 and 1 is always 1
+        if number == 0 or number == 1:
+            return 1
+        # Use an iterative approach to calculate factorial
+        result = 1
+        for i in range(2, number + 1):
+            result *= i
+        return result
     except ValueError as e:
         return str(e)  # Return any error message as a string
 
+# Function to check if a number is prime
+def is_prime(number):
+    if number <= 1:
+        return False
+    if number == 2:
+        return True
+    if number % 2 == 0:
+        return False
+    for i in range(3, int(math.sqrt(number)) + 1, 2):
+        if number % i == 0:
+            return False
+    return True
+
 # Streamlit UI
-st.title("Prime Number Checker and Factorial Calculator")
+st.title("Prime Number Checker and Optimized Factorial Calculator")
 
 # User input for number
 number = st.number_input("Enter a number:", min_value=-10000, max_value=10000, step=1)
 
 # Button to check if the number is prime
 if st.button("Check Prime"):
-    # Check if the number is prime and display the result
     if is_prime(number):
         st.success(f"{number} is a Prime Number.")
     else:
@@ -45,9 +47,5 @@ if st.button("Check Prime"):
 
 # Button to calculate the factorial of the number
 if st.button("Find Factorial"):
-    # Ensure the input is a valid number for factorial calculation
-    if isinstance(number, (int, float)):
-        result = factorial(number)
-        st.info(f"The Factorial of {number} is {result}.")
-    else:
-        st.error("Please enter a valid number for factorial calculation.")
+    result = factorial(number)
+    st.info(f"The Factorial of {number} is {result}.")

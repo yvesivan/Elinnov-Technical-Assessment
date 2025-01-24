@@ -1,52 +1,17 @@
 import streamlit as st
 import math
 
-# Set page config for dark mode
-st.set_page_config(page_title="Prime Number and Factorial Checker", layout="wide", initial_sidebar_state="collapsed")
-
-# Apply dark theme using custom CSS
-st.markdown(
-    """
-    <style>
-    body {
-        background-color: #181818;
-        color: white;
-    }
-    .streamlit-expanderHeader {
-        color: white;
-    }
-    .stButton>button {
-        background-color: #1f1f1f;
-        color: white;
-        border: none;
-        padding: 10px;
-        border-radius: 5px;
-    }
-    .stButton>button:hover {
-        background-color: #333;
-    }
-    .stTextInput input {
-        background-color: #333;
-        color: white;
-        border: none;
-    }
-    .stNumberInput input {
-        background-color: #333;
-        color: white;
-        border: none;
-    }
-    </style>
-    """, unsafe_allow_html=True
-)
-
 # Function to check if a number is prime
 def is_prime(number):
+    # Return False for numbers less than or equal to 1
     if number <= 1:
         return False
+    # Check if the number is divisible by 2 (optimization to skip even numbers)
     if number == 2:
         return True
     if number % 2 == 0:
         return False
+    # Check for divisibility from 3 to the square root of the number
     for i in range(3, int(math.sqrt(number)) + 1, 2):
         if number % i == 0:
             return False
@@ -54,8 +19,10 @@ def is_prime(number):
 
 # Function to calculate the factorial of a number
 def factorial(number):
+    # Factorial is not defined for negative numbers, so return a message for negative inputs
     if number < 0:
         return "Undefined (negative numbers)"
+    # Use the math.factorial function to calculate the factorial
     return math.factorial(number)
 
 # Streamlit UI
@@ -66,6 +33,7 @@ number = st.number_input("Enter a number:", min_value=-10000, max_value=10000, s
 
 # Button to check if the number is prime
 if st.button("Check Prime"):
+    # Check if the number is prime and display the result
     if is_prime(number):
         st.success(f"{number} is a Prime Number.")
     else:
@@ -73,5 +41,6 @@ if st.button("Check Prime"):
 
 # Button to calculate the factorial of the number
 if st.button("Find Factorial"):
+    # Calculate and display the factorial
     result = factorial(number)
     st.info(f"The Factorial of {number} is {result}.")

@@ -1,8 +1,43 @@
 import streamlit as st
 import math
 
-# Set the page configuration for dark theme
-st.set_page_config(page_title="Prime Number and Factorial Checker", layout="wide", initial_sidebar_state="collapsed", theme="dark")
+# Set page config for dark mode
+st.set_page_config(page_title="Prime Number and Factorial Checker", layout="wide", initial_sidebar_state="collapsed")
+
+# Apply dark theme using custom CSS
+st.markdown(
+    """
+    <style>
+    body {
+        background-color: #181818;
+        color: white;
+    }
+    .streamlit-expanderHeader {
+        color: white;
+    }
+    .stButton>button {
+        background-color: #1f1f1f;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    .stButton>button:hover {
+        background-color: #333;
+    }
+    .stTextInput input {
+        background-color: #333;
+        color: white;
+        border: none;
+    }
+    .stNumberInput input {
+        background-color: #333;
+        color: white;
+        border: none;
+    }
+    </style>
+    """, unsafe_allow_html=True
+)
 
 # Function to check if a number is prime
 def is_prime(number):

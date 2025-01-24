@@ -6,7 +6,8 @@ def is_prime(number):
     # Return False for numbers less than or equal to 1
     if number <= 1:
         return False
-    # Check if the number is divisible by 2 (optimization to skip even numbers)
+    # Optimization Done: It will check if the number entered is divisible by 2
+    ## This reduces the number of iterations for even numbers.
     if number == 2:
         return True
     if number % 2 == 0:
@@ -19,11 +20,14 @@ def is_prime(number):
 
 # Function to calculate the factorial of a number
 def factorial(number):
-    # Factorial is not defined for negative numbers, so return a message for negative inputs
-    if number < 0:
-        return "Undefined (negative numbers)"
-    # Use the math.factorial function to calculate the factorial
-    return math.factorial(number)
+    try:
+        # Factorial is not defined for negative numbers, so return a message for negative inputs
+        if number < 0:
+            return "Undefined (negative numbers)"
+        # Use the math.factorial function to calculate the factorial
+        return math.factorial(number)
+    except ValueError as e:
+        return str(e)  # Return any error message as a string
 
 # Streamlit UI
 st.title("Prime Number Checker and Factorial Calculator")
@@ -41,6 +45,9 @@ if st.button("Check Prime"):
 
 # Button to calculate the factorial of the number
 if st.button("Find Factorial"):
-    # Calculate and display the factorial
-    result = factorial(number)
-    st.info(f"The Factorial of {number} is {result}.")
+    # Ensure the input is a valid number for factorial calculation
+    if isinstance(number, (int, float)):
+        result = factorial(number)
+        st.info(f"The Factorial of {number} is {result}.")
+    else:
+        st.error("Please enter a valid number for factorial calculation.")

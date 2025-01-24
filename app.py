@@ -37,7 +37,7 @@ def is_prime(number):
 st.title("Prime Number Checker and Optimized Factorial Calculator")
 
 # User input for number
-number = st.number_input("Enter a number:", min_value=-None, max_value=10000, step=1)
+number = st.number_input("Enter a number:", min_value=0, max_value=10000, step=1)
 
 # Button to check if the number is prime
 if st.button("Check Prime"):
